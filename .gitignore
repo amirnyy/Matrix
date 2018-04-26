@@ -1,3 +1,4 @@
-_builds
-.DS_Store
+*build*/
+*install*/
 *.swp
+.idea/
