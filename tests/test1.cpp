@@ -17,10 +17,18 @@ TEST_CASE("Matrix comparison") {
     Matrix <int, 3, 2> m2{1, 2, 3, 4, 5, 6};
     Matrix <int, 3, 2> m3{m2};
     Matrix <int, 3, 2> m4;
+    int flag1, flag2; 
     m4 = m3;
     m4[0][0] = 8;
-    
-    REQUIRE(m2 == m3);
-    REQUIRE(m3 != m4);
+    if (m2 == m3) 
+        flag1 = 1;
+    else
+        flag1 = 0;
+    if (m3 == m4) 
+        flag2 = 1;
+    else
+        flag2 = 0;
+    REQUIRE(flag1 == 1);
+    REQUIRE(flag2 == 0);
 }
 
