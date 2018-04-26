@@ -9,7 +9,8 @@ REQUIRE(m6.empty() == true);
 TEST_CASE("Show size of Matrix") {
    Matrix <int, 2, 1> m1{3,5};
     
-    REQUIRE((m1.rows() == 2) && (m1.columns() == 1));
+    REQUIRE(m1.rows() == 2);
+    REQUIRE(m1.columns() == 1);
 }
 TEST_CASE("Matrix comparison") {
     Matrix <int, 2, 1> m1{3,5};
@@ -19,6 +20,7 @@ TEST_CASE("Matrix comparison") {
     m4 = m3;
     m4[0][0] = 8;
     
-    REQUIRE(((m2 == m3) == true) && ((m3 == m4) == false));
+    REQUIRE(m2 == m3);
+    REQUIRE(m3 != m4);
 }
 
