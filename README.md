@@ -5,11 +5,9 @@ $ cmake --build _build
 $ cmake --build _build --target install
 ```
 
-OR
-
 ```ShellSession
 $ git clone https://github.com/amirnyy/Matrix
-$ cd matrix/examples
-$ g++ example1.cpp -I. -std=c++11 -o matrix-example
+$ cd Matrix/sources
+$ g++ Matrix.cpp -I. -std=c++11 -o matrix-example
 $ ./matrix-example
 ```
