@@ -1,5 +1,7 @@
 #include "catch.hpp"
 #include <Matrix.hpp>
+#include <fstream>
+#include <iostream>
 TEST_CASE("Creating Matrix") {
     Matrix <int, 3, 2> m6{};
 
