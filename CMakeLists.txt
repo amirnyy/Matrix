@@ -1,30 +1,36 @@
-cmake_minimum_required(VERSION 3.8)
+cmake_minimum_required(VERSION 3.0)
 
-include("cmake/HunterGate.cmake")
-HunterGate(
-    URL "https://github.com/ruslo/hunter/archive/v0.19.123.tar.gz"
-    SHA1 "57d07480686f82ddc916a5980b4f2a18e5954c2b"
-)
-
-project(Matrix)
-set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-option(BUILD_TESTS "Build tests" OFF)
-option(BUILD_EXAMPLES "Build Examples" OFF)
+option(BUILD_EXAMPLES "Build examples" OFF)
 
-add_library(${PROJECT_NAME} "${PROJECT_SOURCE_DIR}/sources/Matrix.cpp")
-include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include/)
+project(Matrix)
 
-if(BUILD_TESTS)
-  hunter_add_package(Catch)
-  find_package(Catch CONFIG REQUIRED)
+add_library(print STATIC ${CMAKE_CURRENT_SOURCE_DIR}/sources/Matrix.cpp)
 
-  enable_testing()
+target_include_directories(print PUBLIC
+  $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+  $<INSTALL_INTERFACE:include>
+)
 
-  file(GLOB ${PROJECT_NAME}_TEST_SOURCES tests/*.cpp)
-  add_executable(tests ${${PROJECT_NAME}_TEST_SOURCES})
-  target_link_libraries(tests ${PROJECT_NAME} Catch::Catch )
-
-  add_test(NAME test_name COMMAND tests "-s" "-r" "compact" "--use-colour" "yes") 
+if(BUILD_EXAMPLES)
+  file(GLOB EXAMPLE_SOURCES "${CMAKE_CURRENT_SOURCE_DIR}/examples/*.cpp")
+  foreach(EXAMPLE_SOURCE ${EXAMPLE_SOURCES})
+    get_filename_component(EXAMPLE_NAME ${EXAMPLE_SOURCE} NAME_WE)
+    add_executable(${EXAMPLE_NAME} ${EXAMPLE_SOURCE})
+    target_link_libraries(${EXAMPLE_NAME} Matrix)
+    install(TARGETS ${EXAMPLE_NAME}
+      RUNTIME DESTINATION bin
+    )
+  endforeach(EXAMPLE_SOURCE ${EXAMPLE_SOURCES})
 endif()
+
+install(TARGETS Matrix
+    EXPORT matrix-config
+    ARCHIVE DESTINATION lib
+    LIBRARY DESTINATION lib
+)
+
+install(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/include/ DESTINATION include)
+install(EXPORT matrix-config DESTINATION cmake)
