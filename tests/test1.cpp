@@ -6,12 +6,12 @@ TEST_CASE("Creating Matrix") {
 
 REQUIRE(m6.empty() == true);
 }
-TEST_CASE("Show size of Matrix") {
+/*TEST_CASE("Show size of Matrix") {
    Matrix <int, 2, 1> m1{3,5};
     
     REQUIRE(m1.rows() == 2);
     REQUIRE(m1.columns() == 1);
-}
+}*/
 TEST_CASE("Matrix comparison") {
     Matrix <int, 2, 1> m1{3,5};
     Matrix <int, 3, 2> m2{1, 2, 3, 4, 5, 6};
