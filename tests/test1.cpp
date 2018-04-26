@@ -11,7 +11,7 @@ REQUIRE(m6.empty() == true);
     
     REQUIRE(m1.rows() == 2);
     REQUIRE(m1.columns() == 1);
-}*/
+}
 TEST_CASE("Matrix comparison") {
     Matrix <int, 2, 1> m1{3,5};
     Matrix <int, 3, 2> m2{1, 2, 3, 4, 5, 6};
@@ -30,5 +30,5 @@ TEST_CASE("Matrix comparison") {
         flag2 = 0;
     REQUIRE(flag1 == 1);
     REQUIRE(flag2 == 0);
-}
+}*/
 
