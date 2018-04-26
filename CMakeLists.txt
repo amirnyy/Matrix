@@ -9,7 +9,7 @@ project(Matrix)
 
 add_library(print STATIC ${CMAKE_CURRENT_SOURCE_DIR}/sources/Matrix.cpp)
 
-target_include_directories(print PUBLIC
+target_include_directories(Matrix PUBLIC
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
   $<INSTALL_INTERFACE:include>
 )
