@@ -7,7 +7,7 @@ option(BUILD_EXAMPLES "Build examples" OFF)
 
 project(Matrix)
 
-add_library(print STATIC ${CMAKE_CURRENT_SOURCE_DIR}/sources/Matrix.cpp)
+add_library(Matrix STATIC ${CMAKE_CURRENT_SOURCE_DIR}/sources/Matrix.cpp)
 
 target_include_directories(Matrix PUBLIC
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
