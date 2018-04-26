@@ -9,7 +9,7 @@ OR
 
 ```ShellSession
 $ git clone https://github.com/amirnyy/Matrix
-$ cd matrix/include
-$ g++ main.cpp -I. -std=c++11 -o matrix-example
+$ cd matrix/examples
+$ g++ example1.cpp -I. -std=c++11 -o matrix-example
 $ ./matrix-example
 ```
