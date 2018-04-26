@@ -1,10 +1,10 @@
 #include <catch.hpp>
 #include "Matrix.hpp"
 #include <sstream>
-TEST_CASE("Creating Matrix") {
-    Matrix <int, 3, 2> m6{};
-
-REQUIRE(m6.empty() == true);
+TEST_CASE("Creating Matrix") 
+{
+    Matrix<int, 3, 2> m6{};
+    REQUIRE(m6.empty() == true);
 }
 /*TEST_CASE("Show size of Matrix") {
    Matrix <int, 2, 1> m1{3,5};
