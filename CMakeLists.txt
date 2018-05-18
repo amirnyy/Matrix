@@ -12,8 +12,6 @@ target_include_directories(Matrix PUBLIC $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURC
 
 
 
-install(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/include/ DESTINATION include)
-install(EXPORT BSTree-config DESTINATION cmake)
 
 if(BUILD_EXAMPLES)
   file(GLOB EXAMPLE_SOURCES "${CMAKE_CURRENT_SOURCE_DIR}/examples/*.cpp")
