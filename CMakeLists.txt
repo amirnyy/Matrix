@@ -4,33 +4,49 @@ set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 option(BUILD_EXAMPLES "Build examples" OFF)
+option(BUILD_TESTS "Build tests" OFF)
 
-project(Matrix)
+project(BSTree)
 
-add_library(Matrix STATIC ${CMAKE_CURRENT_SOURCE_DIR}/sources/Matrix.cpp)
+add_library(BStree STATIC ${CMAKE_CURRENT_SOURCE_DIR}/sources/binarytree.cpp)
+include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include)
 
-target_include_directories(Matrix PUBLIC
-  $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
-  $<INSTALL_INTERFACE:include>
-)
+add_executable(bench1 ${CMAKE_CURRENT_SOURCE_DIR}/benchmark/bench1.cpp)
+add_executable(bench2 ${CMAKE_CURRENT_SOURCE_DIR}/benchmark/bench2.cpp)
+add_executable(bench3 ${CMAKE_CURRENT_SOURCE_DIR}/benchmark/bench3.cpp)
+add_executable(bench4 ${CMAKE_CURRENT_SOURCE_DIR}/benchmark/bench4.cpp)
+add_executable(bench5 ${CMAKE_CURRENT_SOURCE_DIR}/benchmark/bench5.cpp)
+add_executable(benchmark_add ${CMAKE_CURRENT_SOURCE_DIR}/benchmark/benchmark_add.cpp)
+add_executable(main ${CMAKE_CURRENT_SOURCE_DIR}/sources/main.cpp)
+target_link_libraries(main BStree)
+
+install(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/include/ DESTINATION include)
+install(EXPORT BSTree-config DESTINATION cmake)
 
 if(BUILD_EXAMPLES)
   file(GLOB EXAMPLE_SOURCES "${CMAKE_CURRENT_SOURCE_DIR}/examples/*.cpp")
   foreach(EXAMPLE_SOURCE ${EXAMPLE_SOURCES})
     get_filename_component(EXAMPLE_NAME ${EXAMPLE_SOURCE} NAME_WE)
     add_executable(${EXAMPLE_NAME} ${EXAMPLE_SOURCE})
-    target_link_libraries(${EXAMPLE_NAME} Matrix)
+    target_link_libraries(${EXAMPLE_NAME} BSTree)
     install(TARGETS ${EXAMPLE_NAME}
       RUNTIME DESTINATION bin
     )
   endforeach(EXAMPLE_SOURCE ${EXAMPLE_SOURCES})
 endif()
 
-install(TARGETS Matrix
-    EXPORT matrix-config
+install(TARGETS BSTree
+    EXPORT BSTree-config
     ARCHIVE DESTINATION lib
     LIBRARY DESTINATION lib
 )
 
-install(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/include/ DESTINATION include)
-install(EXPORT matrix-config DESTINATION cmake)
+
+
+if(BUILD_TESTS)
+enable_testing()
+file(GLOB ${PROJECT_NAME}_TEST_SOURCES tests/*.cpp)
+add_executable(check ${${PROJECT_NAME}_TEST_SOURCES})
+target_link_libraries(check ${PROJECT_NAME} ${DEPENDS_LIBRARIES})
+add_test(NAME check COMMAND check "-s" "-r" "compact" "--use-colour" "yes") 
+endif()
